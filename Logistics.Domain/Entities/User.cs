@@ -13,7 +13,8 @@ namespace Logistics.Domain.Entities
         public string Email { get; set; } = default!;
         public string PasswordHash { get; set; } = default!;
         public string FullName { get; set; } = default!;
-        public Guid Role { get; set; }
+        public Guid RoleId { get; set; }
+        public ReferenceData Role { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }
