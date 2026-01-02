@@ -7,6 +7,17 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin();
+    });
+});
+
 // DatabaseConnection
 builder.Services.AddDbContext<LogisticsDbContext>(options =>
     options.UseSqlServer(
@@ -50,6 +61,8 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = string.Empty; // Swagger at root
     });
 }
+
+app.UseCors();
 
 app.UseAuthentication();
 
