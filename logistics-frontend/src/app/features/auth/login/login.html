@@ -1,1 +1,26 @@
-<p>login works!</p>
+<div class="form-container">
+    <mat-form-field class="form-field">
+        <mat-label>Enter your email</mat-label>
+        <input matInput [formControl]="email" (blur)="configureValidation(email, emailErrorMessageSignal, emailRules)"
+            required />
+        @if (email.invalid) {
+        <mat-error>{{emailErrorMessageSignal()}}</mat-error>
+        }
+    </mat-form-field>
+    <mat-form-field class="form-field">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [formControl]="password" [type]="hide() ? 'password' : 'text'"
+            (blur)="configureValidation(password, passwordErrorMessageSignal, passwordRules)" required />
+        <button matIconButton matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide()">
+            <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        @if (password.invalid) {
+        <mat-error>{{passwordErrorMessageSignal()}}</mat-error>
+        }
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="submit-button"
+        [disabled]="emailErrorMessageSignal() != '' || passwordErrorMessageSignal() != ''" (click)="onSubmit()">
+        Submit
+    </button>
+</div>
