@@ -1,0 +1,34 @@
+<mat-toolbar color="primary" class="navbar">
+    <button mat-icon-button (click)="toggleSidenav()" aria-label="Toggle sidenav">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <span class="app-title">Logistics Operations Platform</span>
+    <span class="spacer"></span>
+    <button mat-icon-button aria-label="Profile">
+        <mat-icon>account_circle</mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav [opened]="isSidenavOpen()" mode="side" class="sidenav">
+        <mat-nav-list>
+            <h2 matSubheader>Menu</h2>
+            <mat-list-item (click)="closeSidenav()" routerLink="/dashboard" routerLinkActive="active">
+                <mat-icon matListItemIcon>dashboard</mat-icon>
+                <span matListItemTitle>Dashboard</span>
+            </mat-list-item>
+            <mat-list-item (click)="closeSidenav()" routerLink="/vehicles" routerLinkActive="active">
+                <mat-icon matListItemIcon>directions_car</mat-icon>
+                <span matListItemTitle>Vehicles</span>
+            </mat-list-item>
+            <mat-list-item (click)="closeSidenav()" routerLink="/deliveries" routerLinkActive="active">
+                <mat-icon matListItemIcon>local_shipping</mat-icon>
+                <span matListItemTitle>Deliveries</span>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="sidenav-content">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
