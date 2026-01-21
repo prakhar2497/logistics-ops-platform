@@ -6,10 +6,24 @@ using System.Threading.Tasks;
 
 namespace Logistics.Domain.Enums
 {
-    public class VehicleStatus
+    public static class VehicleStatus
     {
-        public static string Available => "9103424E-66DE-F011-98AC-94E97958798A";
-        public static string InTransit => "9203424E-66DE-F011-98AC-94E97958798A";
-        public static string Maintenance => "9303424E-66DE-F011-98AC-94E97958798A";
+        public static readonly ReferenceData Available = new ReferenceData
+        {
+            Id = Guid.Parse("9103424E-66DE-F011-98AC-94E97958798A"),
+            Code = "Available"
+        };
+
+        public static readonly ReferenceData InTransit = new ReferenceData
+        {
+            Id = Guid.Parse("9103424E-66DE-F011-98AC-94E97958798A"),
+            Code = "InTransit"
+        };
+
+        public static readonly ReferenceData Maintenance = new ReferenceData
+        {
+            Id = Guid.Parse("9103424E-66DE-F011-98AC-94E97958798A"),
+            Code = "Maintenance"
+        };
     }
 }

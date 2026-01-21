@@ -6,10 +6,24 @@ using System.Threading.Tasks;
 
 namespace Logistics.Domain.Enums
 {
-    public class IssueSeverity
+    public static class IssueSeverity
     {
-        public static string Low => "9403424E-66DE-F011-98AC-94E97958798A";
-        public static string Medium => "9503424E-66DE-F011-98AC-94E97958798A";
-        public static string High => "9603424E-66DE-F011-98AC-94E97958798A";
+        public static readonly ReferenceData Low = new ReferenceData
+        {
+            Id = Guid.Parse("9403424E-66DE-F011-98AC-94E97958798A"),
+            Code = "Low"
+        };
+
+        public static readonly ReferenceData Medium = new ReferenceData
+        {
+            Id = Guid.Parse("9503424E-66DE-F011-98AC-94E97958798A"),
+            Code = "Medium"
+        };
+
+        public static readonly ReferenceData High = new ReferenceData
+        {
+            Id = Guid.Parse("9603424E-66DE-F011-98AC-94E97958798A"),
+            Code = "High"
+        };
     }
 }

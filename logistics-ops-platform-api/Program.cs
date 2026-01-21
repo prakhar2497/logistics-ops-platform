@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using AutoMapper;
+using Logistics.Application.MappingProfiles;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +52,10 @@ builder.Services.AddApplicationServices();
 builder.Services.AddSwaggerDocumentation();
 
 builder.Services.AddAuthorization();
+
+builder.Services.AddAutoMapper(cfg => {
+    cfg.ShouldMapMethod = m => false;
+}, typeof(VehicleProfile).Assembly);
 
 
 var app = builder.Build();
