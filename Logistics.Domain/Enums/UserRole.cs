@@ -6,10 +6,25 @@ using System.Threading.Tasks;
 
 namespace Logistics.Domain.Enums
 {
-    public class UserRole
+    public static class UserRole
     {
-        public static string Admin => "8E03424E-66DE-F011-98AC-94E97958798A";
-        public static string Dispatcher => "8F03424E-66DE-F011-98AC-94E97958798A";
-        public static string Driver => "9003424E-66DE-F011-98AC-94E97958798A";
+        public static readonly ReferenceData Admin = new ReferenceData
+        {
+            Id = Guid.Parse("8E03424E-66DE-F011-98AC-94E97958798A"),
+            Code = "Admin"
+        };
+
+        public static readonly ReferenceData Dispatcher = new ReferenceData
+        {
+            Id = Guid.Parse("8F03424E-66DE-F011-98AC-94E97958798A"),
+            Code = "Dispatcher"
+        };
+
+        public static readonly ReferenceData Driver = new ReferenceData
+        {
+            Id = Guid.Parse("9003424E-66DE-F011-98AC-94E97958798A"),
+            Code = "Driver"
+        };
+
     }
 }
