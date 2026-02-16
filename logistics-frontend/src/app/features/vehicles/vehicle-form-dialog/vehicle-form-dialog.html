@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>
+    {{ data.vehicle ? 'Edit Vehicle' : 'Add Vehicle' }}
+</h2>
+
+<mat-dialog-content>
+    <form class="vehicle-form" [formGroup]="form">
+        <mat-form-field appearance="outline">
+            <mat-label>Registration Number</mat-label>
+            <input matInput formControlName="registrationNumber" />
+            <mat-error *ngIf="form.controls.registrationNumber.hasError('required')">
+                Registration Number is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
+            <mat-select formControlName="type">
+                <mat-option *ngFor="let type of data.typeOptions" [value]="type.id">
+                    {{ type.displayName }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls.type.hasError('required')">
+                Type is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Capacity</mat-label>
+            <input matInput type="number" min="1" formControlName="capacityInKg" />
+            <mat-error *ngIf="form.controls.capacityInKg.hasError('required')">
+                Capacity is required
+            </mat-error>
+            <mat-error *ngIf="form.controls.capacityInKg.hasError('min')">
+                Capacity must be greater than 0
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+                <mat-option *ngFor="let status of data.statusOptions" [value]="status.id">
+                    {{ status.displayName }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls.status.hasError('required')">
+                Status is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="data.vehicle" appearance="outline">
+            <mat-label>Last Service Date</mat-label>
+            <input matInput type="date" formControlName="lastServiceDate" />
+            <mat-error *ngIf="form.controls.lastServiceDate.hasError('required')">
+                Last Service Date is required
+            </mat-error>
+            <mat-error *ngIf="form.controls.lastServiceDate.hasError('unchangedDate')">
+                Please change Last Service Date before updating
+            </mat-error>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-flat-button color="primary" type="button" (click)="submit()">
+        {{ data.vehicle ? 'Update' : 'Create' }}
+    </button>
+</mat-dialog-actions>

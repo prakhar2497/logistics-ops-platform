@@ -13,6 +13,10 @@ namespace Logistics.Application.MappingProfiles
     {
         public VehicleProfile()
         {
+            CreateMap<CreateVehicleDto, Vehicle>()
+                .ForMember(d => d.Id, o => o.Ignore())
+                .ForMember(d => d.StatusId, o => o.MapFrom(s => s.Status));
+
             CreateMap<VehicleDto, Vehicle>()
                 .ForMember(d => d.Id, o => o.Ignore())
                 .ForMember(d => d.StatusId, o => o.MapFrom(s => s.Status))
@@ -23,6 +27,8 @@ namespace Logistics.Application.MappingProfiles
                 .ForMember(d => d.Status, o => o.MapFrom(s => s.StatusId));
 
             CreateMap<VehicleDto, VehicleDto>();
+
+            CreateMap<ReferenceData, ReferenceDataDto>();
         }
     }
 }

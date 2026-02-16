@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Logistics.Domain.Entities
+namespace Logistics.Application.DTOs
 {
-    public class ReferenceData
+    public class ReferenceDataDto
     {
-        [Key]
         public Guid Id { get; set; }
         public string Category { get; set; }
         public string Code { get; set; }

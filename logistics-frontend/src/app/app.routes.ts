@@ -11,7 +11,7 @@ export const routes: Routes = [
     path: 'dashboard',
     loadChildren: () =>
       import('./features/dashboard/dashboard.routes').then(
-        (m) => m.DASHBOARD_ROUTES
+        (m) => m.DASHBOARD_ROUTES,
       ),
     canActivate: [authGuard],
   },
@@ -19,15 +19,15 @@ export const routes: Routes = [
     path: 'vehicles',
     loadChildren: () =>
       import('./features/vehicles/vehicles.routes').then(
-        (m) => m.VEHICLES_ROUTES
+        (m) => m.VEHICLES_ROUTES,
       ),
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
   {
     path: 'deliveries',
     loadChildren: () =>
       import('./features/deliveries/deliveries.routes').then(
-        (m) => m.DELIVERIES_ROUTES
+        (m) => m.DELIVERIES_ROUTES,
       ),
     canActivate: [authGuard],
   },

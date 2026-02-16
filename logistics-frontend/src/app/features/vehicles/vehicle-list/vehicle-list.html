@@ -1,0 +1,85 @@
+<div class="vehicle-list-container">
+    <div class="header-row">
+        <h2>Vehicles</h2>
+        <button mat-flat-button color="primary" (click)="openCreateVehicleDialog()">
+            <mat-icon>add</mat-icon>
+            Add Vehicle
+        </button>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+    </div>
+
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="loading-spinner">
+        <mat-spinner></mat-spinner>
+    </div>
+
+    <!-- Table -->
+    <div *ngIf="!isLoading" class="table-container">
+        <table mat-table [dataSource]="vehicles" class="mat-elevation-z8">
+            <!-- Registration Number Column -->
+            <ng-container matColumnDef="registrationNumber">
+                <th mat-header-cell *matHeaderCellDef>Registration Number</th>
+                <td mat-cell *matCellDef="let element">{{ element.registrationNumber }}</td>
+            </ng-container>
+
+            <!-- Type Column -->
+            <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef>Type</th>
+                <td mat-cell *matCellDef="let element">
+                    <span [class]="'type-' + element.type.toLowerCase()">
+                        {{ getTypeDisplayName(element.type) }}
+                    </span>
+                </td>
+            </ng-container>
+
+            <!-- Capacity Column -->
+            <ng-container matColumnDef="capacityInKg">
+                <th mat-header-cell *matHeaderCellDef>Capacity (Kg)</th>
+                <td mat-cell *matCellDef="let element">{{ element.capacityInKg }}</td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let element">
+                    <span [class]="'status-' + element.status.toLowerCase()">
+                        {{ getStatusDisplayName(element.status) }}
+                    </span>
+                </td>
+            </ng-container>
+
+            <!-- Last Service Date Column -->
+            <ng-container matColumnDef="lastServiceDate">
+                <th mat-header-cell *matHeaderCellDef>Last Service Date</th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.lastServiceDate | date: 'short' }}
+                </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button matTooltip="Edit" (click)="editVehicle(element)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Delete" color="warn" (click)="deleteVehicle(element.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <!-- Empty State -->
+        <div *ngIf="vehicles.length === 0" class="empty-state">
+            <p>No vehicles found</p>
+        </div>
+    </div>
+</div>

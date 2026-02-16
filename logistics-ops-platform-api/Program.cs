@@ -7,6 +7,7 @@ using System.Text;
 using AutoMapper;
 using Logistics.Application.MappingProfiles;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,15 +60,12 @@ builder.Services.AddAutoMapper(cfg => {
 
 
 var app = builder.Build();
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Logistics API v1");
-        c.RoutePrefix = string.Empty; // Swagger at root
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Logistics API v1");
+    c.RoutePrefix = "swagger"; // Swagger at root
+});
 
 app.UseCors();
 
@@ -78,5 +76,14 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapGet("/", () => "Hello World!");
+
+app.MapGet("/config-check", (IConfiguration config) =>
+{
+    return Results.Ok(new
+    {
+        jwt = config["Jwt:Key"],
+        conn = config.GetConnectionString("DefaultConnection")
+    });
+});
 
 app.Run();
