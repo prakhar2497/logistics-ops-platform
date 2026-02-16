@@ -21,7 +21,7 @@ namespace Logistics.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<VehicleDto> CreateAsync(VehicleDto request)
+        public async Task<bool> CreateAsync(CreateVehicleDto request)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace Logistics.Application.Services
                 }
                 var mappedRequest = _mapper.Map<Vehicle>(request);
                 await _vehicleRepository.CreateVehicleAsync(mappedRequest);
-                return request;
+                return true;
             }
             catch (Exception ex)
             {

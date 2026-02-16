@@ -16,10 +16,12 @@ namespace Logistics.Application.Extensions
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IVehicleRepository, VehicleRepository>();
+            services.AddScoped<IReferenceDataRepository, ReferenceDataRepository>();
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IJwtTokenService, JwtTokenService>();
             services.AddScoped<IVehicleService, VehicleService>();
+            services.AddScoped<IReferenceDataService, ReferenceDataService>();
 
             services.AddScoped<PasswordHasher>();
             return services;

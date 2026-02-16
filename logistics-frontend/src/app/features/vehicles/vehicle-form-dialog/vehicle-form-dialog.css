@@ -1,0 +1,13 @@
+.vehicle-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  min-width: 380px;
+  padding-top: 6px;
+}
+
+@media (max-width: 600px) {
+  .vehicle-form {
+    min-width: 0;
+  }
+}

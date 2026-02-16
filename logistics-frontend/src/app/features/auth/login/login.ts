@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { merge, startWith } from 'rxjs';
 import { Auth } from '../../../core/services/auth';
 import { BrowserStorage } from '../../../core/services/browser-storage';
+import { ReferenceData } from '../../../core/services/reference-data';
 import { Router } from '@angular/router';
 
 @Component({
@@ -51,23 +52,24 @@ export class Login {
   constructor(
     private authservice: Auth,
     private browserStorage: BrowserStorage,
-    private router: Router
+    private referenceDataService: ReferenceData,
+    private router: Router,
   ) {
     this.registerControl(
       this.email,
       this.emailErrorMessageSignal,
-      this.emailRules
+      this.emailRules,
     );
     this.registerControl(
       this.password,
       this.passwordErrorMessageSignal,
-      this.passwordRules
+      this.passwordRules,
     );
   }
   private startControlSubscription(control: FormControl, updateFn: () => void) {
     merge(
       control.statusChanges.pipe(startWith(control.status)),
-      control.valueChanges.pipe(startWith(control.value))
+      control.valueChanges.pipe(startWith(control.value)),
     )
       .pipe(takeUntilDestroyed())
       .subscribe(() => updateFn());
@@ -76,7 +78,7 @@ export class Login {
   configureValidation(
     control: FormControl,
     messageSignal: any,
-    rules: { key: string; message: string }[]
+    rules: { key: string; message: string }[],
   ) {
     for (const rule of rules) {
       if (control.hasError(rule.key)) {
@@ -90,10 +92,10 @@ export class Login {
   private registerControl(
     control: FormControl,
     messageSignal: any,
-    rules: { key: string; message: string }[]
+    rules: { key: string; message: string }[],
   ) {
     this.startControlSubscription(control, () =>
-      this.configureValidation(control, messageSignal, rules)
+      this.configureValidation(control, messageSignal, rules),
     );
     this.configureValidation(control, messageSignal, rules);
   }
@@ -108,8 +110,22 @@ export class Login {
     var email = this.email.value;
     var password = this.password.value;
     this.authservice.login(email!, password!).subscribe((res) => {
-      this.browserStorage.save('authToken', res);
-      this.router.navigate(['/dashboard']);
+      this.browserStorage.save('authToken', res.token);
+      this.loadReferenceData();
     });
+  }
+
+  private loadReferenceData() {
+    this.referenceDataService.loadAndCacheReferenceData().subscribe(
+      () => {
+        // Reference data loaded and cached successfully
+        this.router.navigate(['/dashboard']);
+      },
+      (error) => {
+        console.error('Error fetching reference data:', error);
+        // Navigate to dashboard even if reference data fetch fails
+        this.router.navigate(['/dashboard']);
+      },
+    );
   }
 }

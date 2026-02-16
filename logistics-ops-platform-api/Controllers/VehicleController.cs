@@ -15,12 +15,12 @@ namespace logistics_ops_platform_api.Controllers
         private readonly IVehicleService _vehicleService;
         public VehicleController(IVehicleService vehicleService)
         {
-                _vehicleService = vehicleService;
+            _vehicleService = vehicleService;
         }
 
         [HttpPost("CreateVehicle")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> CreateVehicle(VehicleDto vehicle)
+        public async Task<IActionResult> CreateVehicle(CreateVehicleDto vehicle)
         {
             var res = await _vehicleService.CreateAsync(vehicle);
             return Ok(res);

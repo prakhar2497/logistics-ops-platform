@@ -9,7 +9,7 @@ namespace Logistics.Application.Interfaces
 {
     public interface IVehicleService
     {
-        Task<VehicleDto> CreateAsync(VehicleDto request);
+        Task<bool> CreateAsync(CreateVehicleDto request);
         Task<VehicleDto> GetByIdAsync(Guid id);
         Task<IReadOnlyList<VehicleDto>> GetAllAsync(VehicleFilter filter);
         Task<VehicleDto> UpdateAsync(Guid id, VehicleDto request);
